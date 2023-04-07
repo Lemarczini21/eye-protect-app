@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { render } from 'react-dom';
+import { useEffect } from 'react';
 
 const App = () => {
   const [status, setStatus] = useState('off');
@@ -20,13 +21,24 @@ const App = () => {
   const formattedTime = formatTime(time);
 
   const startTimer = () => {
-    console.log('start');
     setTime(1200);
     setStatus('work');
     setInterval(() => {
       setTime((time) => time - 1);
-    }, 1000);
+      // Why does not work?
+      // if (time === 0) {
+      //   status === 'work' ? setStatus('rest') : setStatus('work');
+      //   status === 'rest' ? setTime(20) : setTime(1200);
+      // }
+    }, 1);
   };
+  // Why is this strange Syntax?
+  useEffect(() => {
+    if (time === 0) {
+      status === 'work' ? setStatus('rest') : setStatus('work');
+      status === 'rest' ? setTime(20) : setTime(1200);
+    }
+  }, [time]);
 
   return (
     <div>
