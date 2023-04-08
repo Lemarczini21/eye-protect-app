@@ -25,10 +25,14 @@ const App = () => {
     setTimer(
       setInterval(() => {
         setTime((time) => time - 1);
+        // Why does not work?
         // if (time === 0) {
         //   if (status === 'work') {
         //     setStatus('rest');
         //     setTime(20);
+        //   } else {
+        //     setStatus('work');
+        //     setTime(1200);
         //   }
         // }
       }, 1000)
@@ -37,18 +41,22 @@ const App = () => {
 
   const stopTimer = () => {
     clearInterval(timer);
-    setTime(1200);
+    setTime(null);
+    setTimer(null);
     setStatus('off');
   };
   const closeApp = () => {
     window.close();
   };
-  // Why does not work?
+
   useEffect(() => {
     if (time === 0) {
       if (status === 'work') {
         setStatus('rest');
         setTime(20);
+      } else {
+        setStatus('work');
+        setTime(1200);
       }
     }
   }, [time]);
