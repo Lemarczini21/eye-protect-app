@@ -40,6 +40,9 @@ const App = () => {
     setTime(1200);
     setStatus('off');
   };
+  const closeApp = () => {
+    window.close();
+  };
   // Why does not work?
   useEffect(() => {
     if (time === 0) {
@@ -79,7 +82,9 @@ const App = () => {
           Stop
         </button>
       )}
-      <button className='btn btn-close'>X</button>
+      <button onClick={closeApp} className='btn btn-close'>
+        X
+      </button>
     </div>
   );
 };
