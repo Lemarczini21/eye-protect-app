@@ -25,7 +25,7 @@ const App = () => {
   };
 
   const startTimer = () => {
-    setTime(5);
+    setTime(1200);
     setStatus('work');
     setTimer(
       setInterval(() => {
