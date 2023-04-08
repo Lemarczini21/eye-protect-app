@@ -8,7 +8,6 @@ const App = () => {
   const [time, setTime] = useState(null);
   const [timer, setTimer] = useState(null);
 
-  //time in seconds
   const formatTime = (sec) => {
     let seconds = sec % 60;
     let minutes = Math.floor(sec / 60);
@@ -23,20 +22,31 @@ const App = () => {
   const startTimer = () => {
     setTime(1200);
     setStatus('work');
-    setInterval(() => {
-      setTime((time) => time - 1);
-      // Why does not work?
-      // if (time === 0) {
-      //   status === 'work' ? setStatus('rest') : setStatus('work');
-      //   status === 'rest' ? setTime(20) : setTime(1200);
-      // }
-    }, 1);
+    setTimer(
+      setInterval(() => {
+        setTime((time) => time - 1);
+        // if (time === 0) {
+        //   if (status === 'work') {
+        //     setStatus('rest');
+        //     setTime(20);
+        //   }
+        // }
+      }, 1000)
+    );
   };
-  // Why is this strange Syntax?
+
+  const stopTimer = () => {
+    clearInterval(timer);
+    setTime(1200);
+    setStatus('off');
+  };
+  // Why does not work?
   useEffect(() => {
     if (time === 0) {
-      status === 'work' ? setStatus('rest') : setStatus('work');
-      status === 'rest' ? setTime(20) : setTime(1200);
+      if (status === 'work') {
+        setStatus('rest');
+        setTime(20);
+      }
     }
   }, [time]);
 
@@ -64,7 +74,11 @@ const App = () => {
           Start
         </button>
       )}
-      {status !== 'off' && <button className='btn'>Stop</button>}
+      {status !== 'off' && (
+        <button onClick={stopTimer} className='btn'>
+          Stop
+        </button>
+      )}
       <button className='btn btn-close'>X</button>
     </div>
   );
